@@ -1,6 +1,6 @@
 qinq
 ====
-PHP 5.5+ quasi integrated query
+PHP 5.5+ quasi integrated query 
 
 [![Build Status](https://travis-ci.org/jgswift/qinq.png?branch=master)](https://travis-ci.org/jgswift/qinq)
 
