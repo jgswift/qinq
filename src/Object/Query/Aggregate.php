@@ -14,7 +14,7 @@ namespace qinq\Object\Query {
             
             $narr = [];
             $hasValue = false;
-            $aggregateValue = null;
+            $aggrValue = null;
             
             $fn = $this->getCallback();
             

@@ -36,7 +36,7 @@ namespace qinq\Query {
         
         /**
          * Retrieve statement query
-         * @return type
+         * @return \qinq\Interfaces\Query
          */
         public function getQuery() {
             return $this->query;
@@ -53,7 +53,7 @@ namespace qinq\Query {
         
         /**
          * Retrieve statement collection
-         * @return qinq\Interfaces\Collection
+         * @return \qinq\Interfaces\Collection
          */
         function getCollection() {
             return $this->query->getCollection();

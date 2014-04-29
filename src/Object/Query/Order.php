@@ -17,7 +17,9 @@ namespace qinq\Object\Query {
                 $fn = $this->getDefaultSorter($args[0]);
             }
             
-            usort($arr,$fn);
+            if(is_callable($fn)) {
+                usort($arr,$fn);
+            }
             
             return $arr;
         }

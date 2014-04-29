@@ -16,6 +16,7 @@ namespace qinq\Object\Query {
             
             $fn = $this->getCallback();
             
+            $arr1 = null;
             if(empty($fn) && count($args) === 1) {
                 if(is_array($args[0])) {
                     $arr1 = new qinq\Collection($args[0]);

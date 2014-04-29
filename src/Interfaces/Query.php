@@ -6,5 +6,10 @@ namespace qinq\Interfaces {
          * @return \qinq\Interfaces\Collection
          */
         public function getCollection();
+        
+        /**
+         * Update query collection
+         */
+        public function setCollection(Collection $collection);
     }
 }
