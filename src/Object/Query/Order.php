@@ -21,30 +21,24 @@ namespace qinq\Object\Query {
             
             if(is_callable($fn)) {
                 if(in_array(qinq\Order::Descending,$args)) {
-                    $sortFn = function($a,$b)use($fn) {
-                        $aR = $fn($a);
-                        $bR = $fn($b);
-                        if($aR == $bR) {
-                            return 0;
-                        } elseif($aR > $bR) {
-                            return -1;
-                        } else {
-                            return 1;
-                        }
-                    };
+                    $inequation = -1;
                 } else {
-                    $sortFn = function($a,$b)use($fn) {
+                    $inequation = 1;
+                }
+                
+                $sortFn = function($a,$b)use($fn,$inequation) {
                         $aR = $fn($a);
                         $bR = $fn($b);
                         if($aR == $bR) {
                             return 0;
-                        } elseif($aR < $bR) {
+                        } elseif($inequation === -1 && $aR > $bR) {
+                            return -1;
+                        } elseif($inequation === 1 && $aR < $bR) {
                             return -1;
                         } else {
                             return 1;
                         }
                     };
-                }
                 
                 usort($arr,$sortFn);
             }

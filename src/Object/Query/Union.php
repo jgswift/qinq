@@ -1,6 +1,7 @@
 <?php
 namespace qinq\Object\Query {
     use qinq;
+    use qtil;
     
     class Union extends Unique {
         /**
@@ -19,13 +20,13 @@ namespace qinq\Object\Query {
             $arr1 = null;
             if(empty($fn) && count($args) === 1) {
                 if(is_array($args[0])) {
-                    $arr1 = new qinq\Collection($args[0]);
-                } elseif($args[0] instanceof qinq\Interfaces\Collection) {
                     $arr1 = $args[0];
+                } elseif($args[0] instanceof qtil\Interfaces\Collection) {
+                    $arr1 = $args[0]->toArray();
                 }
                 
-                if($arr1 instanceof qinq\Interfaces\Collection) {
-                    $result = array_keys(array_flip($arr) + array_flip($arr1->toArray()));
+                if(is_array($arr1)) {
+                    $result = array_keys(array_flip($arr) + array_flip($arr1));
                     asort($result);
                     return $result;
                 }
