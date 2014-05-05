@@ -1,7 +1,5 @@
 <?php
 namespace qinq\Object\Query {
-    use qinq;
-    
     class Last extends At {
         /**
          * Update collection to only contain last item

@@ -7,7 +7,7 @@ namespace qinq\Object\Query {
          * Sorts array values using callable filter
          * @return array
          */
-        function execute() {
+        public function execute() {
             $collection = $this->getCollection();
             $arr = $collection->toArray();
             $fn = $this->getCallback();
@@ -26,24 +26,28 @@ namespace qinq\Object\Query {
                     $inequation = 1;
                 }
                 
-                $sortFn = function($a,$b)use($fn,$inequation) {
-                        $aR = $fn($a);
-                        $bR = $fn($b);
-                        if($aR == $bR) {
-                            return 0;
-                        } elseif($inequation === -1 && $aR > $bR) {
-                            return -1;
-                        } elseif($inequation === 1 && $aR < $bR) {
-                            return -1;
-                        } else {
-                            return 1;
-                        }
-                    };
+                $sortFn = $this->getSortFn($fn, $inequation);
                 
                 usort($arr,$sortFn);
             }
             
             return $arr;
+        }
+        
+        protected function getSortFn($fn,$inequation) {
+            return function($a,$b)use($fn,$inequation) {
+                $aR = $fn($a);
+                $bR = $fn($b);
+                if($aR == $bR) {
+                    return 0;
+                } elseif($inequation === -1 && $aR > $bR) {
+                    return -1;
+                } elseif($inequation === 1 && $aR < $bR) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            };
         }
     }
 }
