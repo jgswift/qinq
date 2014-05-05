@@ -3,6 +3,129 @@ namespace qinq\Tests {
     use qinq;
     
     class ObjectTest extends qinqTestCase {
+        function testIntegratedQueryFrom() {
+            $numbers = new qinq\Collection(range(1,10));
+            
+            $query = $numbers->getQuery();
+            
+            $matches = range(1,4);
+            
+            foreach($query->from(range(1,4))->execute() as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
+        function testIntegratedQueryKeys() {
+            $numbers = new qinq\Collection([
+                1 => 'animal',
+                2 => 'item',
+                3 => 'bob',
+                4 => 'cat'
+            ]);
+            
+            $matches = range(1,4);
+            foreach($numbers->keys() as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
+        function testIntegratedQueryValues() {
+            $numbers = new qinq\Collection([
+                'animal' => 1,
+                'item' => 2,
+                'bob' => 3,
+                'cat' => 4
+            ]);
+            
+            $matches = range(1,4);
+            foreach($numbers->values() as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
+        function testIntegratedQueryShuffle() {
+            $numbers = new qinq\Collection(range(1,4));
+            
+            $this->assertEquals(4,count($numbers->shuffle()));
+        }
+        
+        function testIntegratedQueryReduce() {
+            $numbers = new qinq\Collection(range(1,4));
+            
+            $numbers->reduce(function($carry,$item) {
+                return $carry += $item;
+            });
+            
+            $this->assertEquals(10,$numbers[0]);
+        }
+        
+        function testIntegratedQueryFirst() {
+            $numbers = new qinq\Collection(range(1,4));
+            
+            $query = $numbers->getQuery();
+            
+            foreach($query->first()->execute() as $number) {
+                $this->assertEquals(1,$number);
+            }
+        }
+        
+        function testIntegratedQueryLast() {
+            $numbers = new qinq\Collection(range(1,4));
+            
+            $query = $numbers->getQuery();
+            
+            foreach($query->last()->execute() as $number) {
+                $this->assertEquals(4,$number);
+            }
+        }
+        
+        function testIntegratedQueryFlatten() {
+            $numbers = new qinq\Collection([
+                1,
+                [2,3,[4]],
+            ]);
+            
+            $matches = range(1,4);
+            foreach($numbers->flatten() as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
+        function testIntegratedQueryIntersect() {
+            $numbers = new qinq\Collection(range(1,4));
+            $compare = new qinq\Collection(range(2,3));
+            
+            $matches = [2,3];
+            foreach($numbers->intersect($compare) as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
+        function testIntegratedQueryExcept() {
+            $numbers = new qinq\Collection(range(1,4));
+            
+            $matches = [1,4];
+            foreach($numbers->except([2,3]) as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
+        function testIntegratedQueryDifference() {
+            $numbers = new qinq\Collection(range(1,4));
+            
+            $matches = [1,4];
+            foreach($numbers->difference([2,3]) as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
         function testIntegratedQueryWhere() {
             $numbers = new qinq\Collection(range(1,4));
             
@@ -60,6 +183,24 @@ namespace qinq\Tests {
             }
         }
         
+        function testIntegratedQuerySort() {
+            $numbers = new qinq\Collection(range(1,3));
+            
+            $matches = range(3,1);
+            foreach($numbers->sort(qinq\Order::Descending) as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+            
+            $matches = range(3,1);
+            foreach($numbers->sort(function($a,$b) {
+                    return ($a > $b) ? -1 : 1;
+                }) as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
         function testIntegratedQueryOrder() {
             $numbers = new qinq\Collection(range(1,3));
             
@@ -69,16 +210,16 @@ namespace qinq\Tests {
                 $this->assertEquals($match,$number);
             }
             
-            $matches = range(3,1);
-            foreach($numbers->order(function($a,$b) {
-                    return ($a > $b) ? -1 : 1;
-                }) as $number) {
+            $numbers = new qinq\Collection(range(1,3));
+            
+            $matches = range(1,3);
+            foreach($numbers->order(qinq\Order::Ascending) as $number) {
                 $match = array_shift($matches);
                 $this->assertEquals($match,$number);
             }
         }
         
-        function testIntegratedQueryFrom() {
+        function testIntegratedFrom() {
             $numbers = new qinq\Collection();
             
             $matches = [10,20,30];

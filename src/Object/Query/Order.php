@@ -14,31 +14,42 @@ namespace qinq\Object\Query {
             $args = $this->getArguments();
             
             if(empty($fn) && !empty($args)) {
-                $fn = $this->getDefaultSorter($args[0]);
+                $fn = function($n) {
+                    return $n;
+                };
             }
             
             if(is_callable($fn)) {
-                usort($arr,$fn);
+                if(in_array(qinq\Order::Descending,$args)) {
+                    $sortFn = function($a,$b)use($fn) {
+                        $aR = $fn($a);
+                        $bR = $fn($b);
+                        if($aR == $bR) {
+                            return 0;
+                        } elseif($aR > $bR) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    };
+                } else {
+                    $sortFn = function($a,$b)use($fn) {
+                        $aR = $fn($a);
+                        $bR = $fn($b);
+                        if($aR == $bR) {
+                            return 0;
+                        } elseif($aR < $bR) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    };
+                }
+                
+                usort($arr,$sortFn);
             }
             
             return $arr;
-        }
-        
-        /**
-         * Helper method to provide default filtering callables
-         * @param integer $order
-         * @return callable
-         */
-        private function getDefaultSorter($order) {
-            if($order === qinq\Order::Descending) {
-                return function($a,$b) {
-                    return ($a > $b) ? -1 : 1;
-                };
-            } elseif($order === qinq\Order::Ascending) {
-                return function($a,$b) {
-                    return ($a < $b) ? -1 : 1;
-                };
-            }
         }
     }
 }

@@ -63,7 +63,15 @@ foreach($integers->order(qinq\Order::Descending) as $integer) {
     // 50, 49, 48, 47 ...
 }
 
-foreach($names->order(function($a,$b) { return (strlen($a) > strlen($b)) ? -1 : 1; } ) as $name ) {
+foreach($names->order(function($n) { return strlen($n); } ) as $name ) {
+    // john, jake, bob ...
+}
+```
+
+**Sort**
+
+```php
+foreach($names->sort(function($a,$b) { return (strlen($a) > strlen($b)) ? -1 : 1; } ) as $name ) {
     // john, jake, bob ...
 }
 ```
@@ -106,6 +114,21 @@ foreach($integers
     }
 ```
 
+**Additional Operations**
+
+* Difference
+* Except
+* First
+* Flatten
+* From
+* Intersect
+* Keys
+* Last
+* Pack
+* Reduce
+* Shuffle
+* Values
+
 **Storing**
 
 ```php
@@ -123,3 +146,5 @@ $query_from_cache = unserialize($query_to_cache);
 
 var_dump( $query_from_cache->execute() === $query->execute() ) // true
 ```
+
+Note: Query storing relies on eval to unserialize Closures.  Do not rely on users to provide serialized queries to your application as this can make your application vulnerable to code injection.

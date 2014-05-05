@@ -11,7 +11,14 @@ namespace qinq\Object\Query {
             $collection = $this->getCollection();
             
             $arr = $collection->toArray();
-            return array_filter($arr,$this->getCallback());
+            
+            $fn = $this->getCallback();
+            
+            if(is_callable($fn)) {
+                return array_filter($arr,$fn);
+            } else {
+                return array_filter($arr);
+            }
         }
     }
 }
