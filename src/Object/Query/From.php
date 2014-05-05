@@ -11,8 +11,6 @@ namespace qinq\Object\Query {
         public function execute() {
             $arr = $this->getCollection()->toArray();
             
-            $fn = $this->getCallback();
-            
             $args = $this->getArguments();
             
             $numArgs = count($args);

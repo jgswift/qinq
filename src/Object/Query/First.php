@@ -2,7 +2,7 @@
 namespace qinq\Object\Query {
     use qinq;
     
-    class First extends qinq\Object\Statement {
+    class First extends At {
         /**
          * Update collection to only contain first item
          * @return array
@@ -10,9 +10,8 @@ namespace qinq\Object\Query {
         public function execute() {
             $collection = $this->getCollection();
             
-            $arr = $collection->toArray();
-            
-            return [$arr[array_keys($arr)[0]]];
+            $this->arguments[] = 0;
+            return parent::execute();
         }
     }
 }

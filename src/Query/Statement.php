@@ -9,13 +9,13 @@ namespace qinq\Query {
          * Statement query
          * @var \qinq\Interfaces\Query 
          */
-        private $query;
+        protected $query;
         
         /**
          * Arguments passed to statement during linking
          * @var array
          */
-        private $arguments = [];
+        protected $arguments = [];
         
         /**
          * Default constructor for query statements

@@ -147,4 +147,9 @@ $query_from_cache = unserialize($query_to_cache);
 var_dump( $query_from_cache->execute() === $query->execute() ) // true
 ```
 
-Note: Query storing relies on eval to unserialize Closures.  Do not rely on users to provide serialized queries to your application as this can make your application vulnerable to code injection.
+*Note*: Query storing relies on *eval* to unserialize Closures.  
+Do not rely on users to provide serialized queries to your application as this 
+can make your application vulnerable to code injection.  
+You can verify a queries authenticity by performing a cryptographic checksum on 
+the serialized contents every time a client sends the query.  
+However said functionality is not implemented in this package.

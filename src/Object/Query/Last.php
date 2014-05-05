@@ -2,7 +2,7 @@
 namespace qinq\Object\Query {
     use qinq;
     
-    class Last extends qinq\Object\Statement {
+    class Last extends At {
         /**
          * Update collection to only contain last item
          * @return array
@@ -10,9 +10,8 @@ namespace qinq\Object\Query {
         public function execute() {
             $collection = $this->getCollection();
             
-            $arr = $collection->toArray();
-            
-            return [$arr[array_keys($arr)[count($arr)-1]]];
+            $this->arguments[] = count($collection)-1;
+            return parent::execute();
         }
     }
 }
