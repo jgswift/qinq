@@ -14,8 +14,6 @@ namespace qinq\Object\Query {
             
             $fn = $this->getCallback();
             
-            $args = $this->getArguments();
-            
             if(is_callable($fn)) {
                 foreach($arr as $k=>$v) {
                     $keep = call_user_func_array($fn, [$v,$k]);
