@@ -136,6 +136,22 @@ namespace qinq\Tests {
             }
         }
         
+        function testIntegratedQueryWhereKeys() {
+            $numbers = new qinq\Collection([
+                'bob' => 1,
+                'jim' => 2,
+                'sam' => 3,
+                'joe' => 4,
+                'jack' => 5
+            ]);
+            
+            $numbers->where(function($n,$k) {
+                return strlen($k) == 3;
+            });
+            
+            $this->assertEquals(4,count($numbers));
+        }
+        
         function testIntegratedQuerySelect() {
             $numbers = new qinq\Collection(range(1,2));
             
