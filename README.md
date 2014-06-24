@@ -25,8 +25,8 @@ arrays using php's built-in array functionality.
 The following is a basic example
 ```php
 $richPeople = $people
-    ->where(function($person) { return $person['money'] > 1000000; }
-    ->order(function($personA,$personB) { return ($personA['money'] < $personB['money']) ? -1 : 1; } )
+    ->where(function($person) { return $person['money'] > 1000000; })
+    ->order(function($personA,$personB) { return ($personA['money'] < $personB['money']) ? -1 : 1; })
     ->index(function($person) { return $person['lastName']; })
     ->select(function($person) {
         return [
