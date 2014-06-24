@@ -3,6 +3,13 @@ namespace qinq {
     use qtil;
     
     class Collection extends qtil\Collection implements Interfaces\Collection {
+        
+        /**
+         * Stores collection data
+         * @var array
+         */
+        public $data;
+        
         /**
          * Builds default query
          * @return \qinq\Object\Query
