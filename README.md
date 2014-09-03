@@ -16,7 +16,7 @@ Install via composer.json using [composer](https://getcomposer.org/):
 ```json
 {
     "require": {
-        "jgswift/qinq": 0.1.*"
+        "jgswift/qinq": "0.1.*"
     }
 }
 ```

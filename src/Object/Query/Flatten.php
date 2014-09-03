@@ -26,8 +26,12 @@ namespace qinq\Object\Query {
                 $return[] = $a; 
             };
             
-            while(\qtil\ArrayUtil::isMultidimensional($arr)) {
-                array_walk_recursive($arr, $fn);
+            array_walk_recursive($arr, $fn);
+            
+            while(\qtil\ArrayUtil::isMultidimensional($return)) {
+                $compare = $return;
+                $return = [];
+                array_walk_recursive($compare, $fn);
             }
             
             return $return;
