@@ -230,7 +230,7 @@ foreach($integers
 Removes all data from collection that is weakly equivalent to false or 0
 ```php
 $junk = new qinq\Collection([
-    'false', false, 0, false, '0', 'hello'
+    false, 0, false, '0', 'hello'
 ]);
 
 foreach($junk

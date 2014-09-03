@@ -87,7 +87,7 @@ namespace qinq\Tests {
             
             $query = $numbers->getQuery();
             
-            $random = $query->random(5);
+            $random = $query->random(5)->execute();
             $this->assertEquals(5,count($random));
         }
         
@@ -106,7 +106,7 @@ namespace qinq\Tests {
         
         function testIntegratedQueryPack() {
             $junk = new qinq\Collection([
-                'false', false, 0, false, '0', 'hello'
+                false, 0, false, '0', 'hello'
             ]);
 
             $matches = ['hello'];

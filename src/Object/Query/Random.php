@@ -15,8 +15,8 @@ namespace qinq\Object\Query {
             $args = $this->getArguments();
             
             $num = 1;
-            if(isset($args[0])) {
-                $num = $args[0];
+            if(isset($args[0]) && is_numeric($args[0])) {
+                $num = (int)$args[0];
             }
             
             $result = [];
