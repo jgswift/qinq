@@ -21,6 +21,8 @@ namespace qinq\Object\Query {
                     return iterator_to_array($args[0]);
                 } elseif($args[0] instanceof qtil\Interfaces\Traversable) {
                     return $args[0]->toArray();
+                } elseif($args[0] instanceof \Traversable) {
+                    return (array)$args[0];
                 }
             } else {
                 return $args;

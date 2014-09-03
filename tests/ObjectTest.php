@@ -82,6 +82,15 @@ namespace qinq\Tests {
             }
         }
         
+        function testIntegratedQueryRandom() {
+            $numbers = new qinq\Collection(range(1,4));
+            
+            $query = $numbers->getQuery();
+            
+            $random = $query->random(5);
+            $this->assertEquals(5,count($random));
+        }
+        
         function testIntegratedQueryFlatten() {
             $numbers = new qinq\Collection([
                 1,
@@ -92,6 +101,18 @@ namespace qinq\Tests {
             foreach($numbers->flatten() as $number) {
                 $match = array_shift($matches);
                 $this->assertEquals($match,$number);
+            }
+        }
+        
+        function testIntegratedQueryPack() {
+            $junk = new qinq\Collection([
+                'false', false, 0, false, '0', 'hello'
+            ]);
+
+            $matches = ['hello'];
+            foreach($junk->pack() as $item) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$item);
             }
         }
         

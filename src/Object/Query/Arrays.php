@@ -32,9 +32,14 @@ namespace qinq\Object\Query {
             if(!empty($args)) {
                 $against = [];
                 foreach($args as $arg) {
-                    if($arg instanceof \qtil\Collection) {
+                    if($arg instanceof qtil\Interfaces\Traversable) {
                         $arg = $arg->toArray();
+                    } elseif($arg instanceof \Iterator) {
+                        $arg = iterator_to_array($arg);
+                    } elseif($arg instanceof \Traversable) {
+                        $arg = (array)$arg;
                     }
+                    
                     $against[] = $arg;
                 }
                 
