@@ -54,7 +54,6 @@ $names = new qinq\Collection(['bob','joe','sam','john','jake']);
 ```
 
 **Filter**
-
 ```php
 // Retrieve all integers divisible by 5
 foreach($integers->where(function($n) { return $n % 5 === 0; }) as $integer) {
@@ -68,7 +67,6 @@ foreach($names->where(function($n) { return strlen($n) === 3; }) as $name) {
 ```
 
 **Order**
-
 ```php
 // Retrieves all integers in descending order
 foreach($integers->order(qinq\Order::Descending) as $integer) {
@@ -82,16 +80,16 @@ foreach($names->order(function($n) { return strlen($n); } ) as $name ) {
 ```
 
 **Sort**
-// Retrieve all names in order of character length (with compare function)
 ```php
+// Retrieve all names in order of character length (with compare function)
 foreach($names->sort(function($a,$b) { return (strlen($a) > strlen($b)) ? -1 : 1; } ) as $name ) {
     // john, jake, bob ...
 }
 ```
 
 **Group**
-// Group values by divisibility of 2
 ```php
+// Group values by divisibility of 2
 foreach($integers->group(function($n) { return $n % 2; }) as $group) {
     // [ 2, 4, 6, 8 ... ], [ 1, 3, 5, 7 ... ]
 }
@@ -103,7 +101,6 @@ foreach($names->group(function($n) { return strlen($n); }) as $group) {
 ```
 
 **Join**
-
 ```php
 // Join integer collections using comparison method (on) and output method (to)
 foreach($integers
@@ -133,6 +130,7 @@ foreach($integers
 **Additional Operations**
 
 **Difference**
+
 Computes the difference between collection and argument
 ```php
 foreach($integers
@@ -143,6 +141,7 @@ foreach($integers
 ```
 
 **Except** 
+
 Alias of *Difference*
 ```php
 foreach($integers
@@ -153,6 +152,7 @@ foreach($integers
 ```
 
 **First**
+
 Retrieves first item in collection.
 ```php
 foreach($integers
@@ -163,6 +163,7 @@ foreach($integers
 ```
 
 **Last**
+
 Retrieves last item in collection
 ```php
 foreach($integers
@@ -173,6 +174,7 @@ foreach($integers
 ```
 
 **Flatten**
+
 Retrieves every value from a multidimensional collection tree and transforms it into a single dimensional collection
 ```php
 $tree = new qinq\Collection([
@@ -189,6 +191,7 @@ foreach($tree
 ```
 
 **From**
+
 Replaces entire collection with given arguments.  A single array/Iterator/Collection may also be given.
 ```php
 foreach($integers
@@ -207,6 +210,7 @@ foreach($integers
 ```
 
 **Intersect**
+
 Retrieves values that exist in both arrays
 ```php
 foreach($integers
@@ -217,6 +221,7 @@ foreach($integers
 ```
 
 **Keys**
+
 Retrieves all collection keys
 ```php
 foreach($integers
@@ -227,6 +232,7 @@ foreach($integers
 ```
 
 **Pack**
+
 Removes all data from collection that is weakly equivalent to false or 0
 ```php
 $junk = new qinq\Collection([
@@ -241,6 +247,7 @@ foreach($junk
 ```
 
 **Reduce**
+
 Reduces array to single value using callback function
 ```php
 $q = new qinq\Collection([1,2,3,4,5]);
@@ -255,6 +262,7 @@ foreach($q
 ```
 
 **Shuffle**
+
 Mix all items in collection to new random positions
 ```php
 foreach($integers
@@ -265,6 +273,7 @@ foreach($integers
 ```
 
 **Values**
+
 Retrieves all values from collection
 ```php
 foreach($integers
@@ -275,6 +284,7 @@ foreach($integers
 ```
 
 **Random**
+
 Selects a number of random items from collection
 ```php
 foreach($integers
