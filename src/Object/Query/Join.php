@@ -33,7 +33,7 @@ namespace qinq\Object\Query {
             }
             
             if(qtil\ArrayUtil::isIterable($this->group) && 
-               qtil\ArrayUtil::isMultidimensional($this->group)) {
+               qtil\ArrayUtil::isMultiObject($this->group)) {
                 return $this;
             }
         }

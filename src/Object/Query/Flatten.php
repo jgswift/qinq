@@ -30,9 +30,7 @@ namespace qinq\Object\Query {
                 $return[] = $this->flatten($a,$flags);
             };
             
-            array_walk_recursive($arr, $fn);
-            
-            while(\qtil\ArrayUtil::isMultidimensional($return)) {
+            while(\qtil\ArrayUtil::isMulti($return)) {
                 $compare = $return;
                 $return = [];
                 array_walk_recursive($compare, $fn);
@@ -41,21 +39,41 @@ namespace qinq\Object\Query {
             return $return;
         }
         
-        public function flatten($a,$flags) {
-            if($flags & self::ARRAYONLY) {
-                if($flags & self::COLLECTION && 
-                   $a instanceof qtil\Interfaces\Traversable) {
-                    $a = $a->toArray();
-                } elseif($flags & self::ITERATOR && 
-                         $a instanceof \Iterator) {
-                    $a = iterator_to_array($a);
-                } elseif($flags & self::TRAVERSABLE && 
-                         $a instanceof \Traversable) {
-                    $a = (array)$a;
+        /**
+         * 
+         * @param mixed $a
+         * @param int $flags
+         * @return mixed
+         */
+        protected function flatten($a,$flags) {
+            if(!is_scalar($a)) {
+                if($flags & self::ARRAYONLY) {
+                    $a = $this->convert($a,$flags);
                 }
             }
 
             return $a;
+        }
+        
+        /**
+         * 
+         * @param mixed $a
+         * @param int $flags
+         * @return mixed
+         */
+        protected function convert($a,$flags) {
+            if($flags & self::COLLECTION && 
+                $a instanceof qtil\Interfaces\Traversable) {
+                 $a = $a->toArray();
+             } elseif($flags & self::ITERATOR && 
+                      $a instanceof \Iterator) {
+                 $a = iterator_to_array($a);
+             } elseif($flags & self::TRAVERSABLE && 
+                      $a instanceof \Traversable) {
+                 $a = (array)$a;
+             }
+             
+             return $a;
         }
     }
 }
