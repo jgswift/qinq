@@ -65,21 +65,13 @@ namespace qinq\Tests {
         function testIntegratedQueryFirst() {
             $numbers = new qinq\Collection(range(1,4));
             
-            $query = $numbers->getQuery();
-            
-            foreach($query->first()->execute() as $number) {
-                $this->assertEquals(1,$number);
-            }
+            $this->assertEquals(1,$numbers->first());
         }
         
         function testIntegratedQueryLast() {
             $numbers = new qinq\Collection(range(1,4));
             
-            $query = $numbers->getQuery();
-            
-            foreach($query->last()->execute() as $number) {
-                $this->assertEquals(4,$number);
-            }
+            $this->assertEquals(4,$numbers->last());
         }
         
         function testIntegratedQueryRandom() {

@@ -155,22 +155,14 @@ foreach($integers
 
 Retrieves first item in collection.
 ```php
-foreach($integers
-    ->first()
-    as $number) {
-        // 1
-    }
+echo $integers->first(); // 1
 ```
 
 ### Last
 
 Retrieves last item in collection
 ```php
-foreach($integers
-    ->last()
-    as $number) {
-        // 50
-    }
+echo $integers->last(); // 50
 ```
 
 ### Flatten
