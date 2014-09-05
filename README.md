@@ -227,9 +227,9 @@ Flattens objects implementing the built-in php Traversable interface.
 
 Flattens objects implementing the built-in php Iterator interface
 
-You may combine or exclude flags using 
+*Note*: You may combine or exclude flags using 
 [bitwise logic](http://php.net/manual/en/language.operators.bitwise.php).  
-This setting descends into any known collection type by default, namely 
+The default flatten flag setting descends into any known collection type by default, namely 
 COLLECTION, TRAVERSABLE, and ITERATOR.
 
 ### From
