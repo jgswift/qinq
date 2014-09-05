@@ -53,7 +53,7 @@ $integers = new qinq\Collection(range(1,50));
 $names = new qinq\Collection(['bob','joe','sam','john','jake']);
 ```
 
-**Filter**
+### Filter
 ```php
 // Retrieve all integers divisible by 5
 foreach($integers->where(function($n) { return $n % 5 === 0; }) as $integer) {
@@ -66,7 +66,7 @@ foreach($names->where(function($n) { return strlen($n) === 3; }) as $name) {
 }
 ```
 
-**Order**
+### Order
 ```php
 // Retrieves all integers in descending order
 foreach($integers->order(qinq\Order::Descending) as $integer) {
@@ -79,7 +79,7 @@ foreach($names->order(function($n) { return strlen($n); } ) as $name ) {
 }
 ```
 
-**Sort**
+### Sort
 ```php
 // Retrieve all names in order of character length (with compare function)
 foreach($names->sort(function($a,$b) { return (strlen($a) > strlen($b)) ? -1 : 1; } ) as $name ) {
@@ -87,7 +87,7 @@ foreach($names->sort(function($a,$b) { return (strlen($a) > strlen($b)) ? -1 : 1
 }
 ```
 
-**Group**
+### Group
 ```php
 // Group values by divisibility of 2
 foreach($integers->group(function($n) { return $n % 2; }) as $group) {
@@ -100,7 +100,7 @@ foreach($names->group(function($n) { return strlen($n); }) as $group) {
 }
 ```
 
-**Join**
+### Join
 ```php
 // Join integer collections using comparison method (on) and output method (to)
 foreach($integers
@@ -127,9 +127,9 @@ foreach($integers
     }
 ```
 
-**Additional Operations**
+## Additional Operations
 
-**Difference**
+### Difference
 
 Computes the difference between collection and argument
 ```php
@@ -140,7 +140,7 @@ foreach($integers
     }
 ```
 
-**Except** 
+### Except 
 
 Alias of *Difference*
 ```php
@@ -151,7 +151,7 @@ foreach($integers
     }
 ```
 
-**First**
+### First
 
 Retrieves first item in collection.
 ```php
@@ -162,7 +162,7 @@ foreach($integers
     }
 ```
 
-**Last**
+### Last
 
 Retrieves last item in collection
 ```php
@@ -173,7 +173,7 @@ foreach($integers
     }
 ```
 
-**Flatten**
+### Flatten
 
 Retrieves every value from a multidimensional collection tree and transforms it into a single dimensional collection
 ```php
@@ -190,7 +190,49 @@ foreach($tree
     }
 ```
 
-**From**
+A flag argument may be provided to limit the flattening to certain types of 
+collections or only arrays. The following example will leave the ArrayObject 
+intact and avoid descending into any collections that are not strictly arrays.  
+
+```php
+use qinq\Object\Query\Flatten;
+
+$tree = new qinq\Collection([
+    [1,2,[3,4]
+    [5,new ArrayObject([6,7,8])],
+]);
+
+foreach($tree
+    ->flatten(Flatten::ARRAYONLY)
+    as $number) {
+        // 1, 2, 3, 4, ArrayObject()
+    }
+```
+
+#### Flatten Flags
+
+* *Flatten::ARRAYONLY*
+
+Flattens strictly php arrays, cancels all other flags
+
+* *Flatten::COLLECTION*
+
+Flattens objects implementing the qtil Traversable interface
+
+* *Flatten::TRAVERSABLE*
+
+Flattens objects implementing the built-in php Traversable interface.
+
+* *Flatten::ITERATOR*
+
+Flattens objects implementing the built-in php Iterator interface
+
+You may combine or exclude flags using 
+[bitwise logic](http://php.net/manual/en/language.operators.bitwise.php).  
+This setting descends into any known collection type by default, namely 
+COLLECTION, TRAVERSABLE, and ITERATOR.
+
+### From
 
 Replaces entire collection with given arguments.  A single array/Iterator/Collection may also be given.
 ```php
@@ -209,7 +251,7 @@ foreach($integers
     }
 ```
 
-**Intersect**
+### Intersect
 
 Retrieves values that exist in both arrays
 ```php
@@ -220,7 +262,7 @@ foreach($integers
     }
 ```
 
-**Keys**
+### Keys
 
 Retrieves all collection keys
 ```php
@@ -231,7 +273,7 @@ foreach($integers
     }
 ```
 
-**Pack**
+### Pack
 
 Removes all data from collection that is weakly equivalent to false or 0
 ```php
@@ -246,7 +288,7 @@ foreach($junk
     }
 ```
 
-**Reduce**
+### Reduce
 
 Reduces array to single value using callback function
 ```php
@@ -261,7 +303,7 @@ foreach($q
     }
 ```
 
-**Shuffle**
+### Shuffle
 
 Mix all items in collection to new random positions
 ```php
@@ -272,7 +314,7 @@ foreach($integers
     }
 ```
 
-**Values**
+### Values
 
 Retrieves all values from collection
 ```php
@@ -283,7 +325,7 @@ foreach($integers
     }
 ```
 
-**Random**
+### Random
 
 Selects a number of random items from collection
 ```php
@@ -294,7 +336,7 @@ foreach($integers
     }
 ```
 
-**Storing**
+### Storing
 
 ```php
 $query = new \qinq\Object\Query($integers);

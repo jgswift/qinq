@@ -4,6 +4,12 @@ namespace qinq\Object\Query {
     use qinq;
     
     class Flatten extends qinq\Object\Statement {
+        
+        const COLLECTION = 1;
+        const ITERATOR = 2;
+        const TRAVERSABLE = 4;
+        const ARRAYONLY = 8;
+        
         /**
          * Flatten multi-dimensional array to single-dimensional array
          * @return array
@@ -13,17 +19,15 @@ namespace qinq\Object\Query {
             
             $arr = $collection->toArray();
             
+            $flags = self::COLLECTION | self::ITERATOR | self::TRAVERSABLE;
+            $args = $this->getArguments();
+            if(isset($args[0])) {
+                $flags = (int)$args[0];
+            }
+            
             $return = [];
-            $fn = function($a) use (&$return) { 
-                if($a instanceof qtil\Interfaces\Traversable) {
-                    $a = $a->toArray();
-                } elseif($a instanceof \Iterator) {
-                    $a = iterator_to_array($a);
-                } elseif($a instanceof \Traversable) {
-                    $a = (array)$a;
-                }
-                
-                $return[] = $a; 
+            $fn = function($a) use (&$return, $flags) { 
+                $return[] = $this->flatten($a,$flags);
             };
             
             array_walk_recursive($arr, $fn);
@@ -35,6 +39,23 @@ namespace qinq\Object\Query {
             }
             
             return $return;
+        }
+        
+        public function flatten($a,$flags) {
+            if($flags & self::ARRAYONLY) {
+                if($flags & self::COLLECTION && 
+                   $a instanceof qtil\Interfaces\Traversable) {
+                    $a = $a->toArray();
+                } elseif($flags & self::ITERATOR && 
+                         $a instanceof \Iterator) {
+                    $a = iterator_to_array($a);
+                } elseif($flags & self::TRAVERSABLE && 
+                         $a instanceof \Traversable) {
+                    $a = (array)$a;
+                }
+            }
+
+            return $a;
         }
     }
 }

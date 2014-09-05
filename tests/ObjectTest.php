@@ -104,6 +104,19 @@ namespace qinq\Tests {
             }
         }
         
+        function testIntegratedQueryFlattenObject() {
+            $numbers = new qinq\Collection([
+                1,
+                new \qtil\Collection([2,3,new \qtil\Collection([4])]),
+            ]);
+            
+            $matches = range(1,4);
+            foreach($numbers->flatten() as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
         function testIntegratedQueryPack() {
             $junk = new qinq\Collection([
                 false, 0, false, '0', 'hello'
