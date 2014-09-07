@@ -109,6 +109,18 @@ namespace qinq\Tests {
             }
         }
         
+        function testIntegratedQueryFlattenString() {
+            $numbers = new qinq\Collection([
+                'foo bar'
+            ]);
+            
+            $matches = ['foo bar'];
+            foreach($numbers->flatten() as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
         function testIntegratedQueryPack() {
             $junk = new qinq\Collection([
                 false, 0, false, '0', 'hello'
