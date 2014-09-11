@@ -336,6 +336,44 @@ foreach($integers
     }
 ```
 
+### Pluck
+
+Aggregate specific array key or object property
+
+```php
+$users = new qinq\Collection([
+    [
+        'name' => 'bob'
+        'email' => 'bob@example.com'
+    ],
+    [
+        'name' => 'jim'
+        'email' => 'jim@example.com'
+    ]
+]);
+
+foreach($users->pluck('name') as $email) {
+    // bob, jim 
+}
+```
+
+```php
+class User {
+    public $name, $email;
+
+    function __construct($name, $email) { /* ... */ }
+}
+
+$users = new qinq\Collection([
+    new User('bob','bob@example.com'),
+    new User('jim','jim@example.com'),
+]);
+
+foreach($users->pluck('email') as $email) {
+    // bob@example.com, jim@example.com
+}
+```
+
 ### Storing
 
 ```php
