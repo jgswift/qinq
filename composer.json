@@ -4,7 +4,6 @@
     "keywords": ["php", "query"],
     "license": "MIT",
     "type": "library",
-    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Josh Swift",
@@ -15,10 +14,10 @@
     ],    
     "require": {
         "php": ">=5.5",
-        "jgswift/qtil": "dev-master",
-        "jgswift/kenum": "dev-master",
-        "jgswift/kfiltr": "dev-master",
-        "jgswift/delegatr": "dev-master"
+        "jgswift/qtil": "0.1.*",
+        "jgswift/kenum": "0.1.*",
+        "jgswift/kfiltr": "0.1.*",
+        "jgswift/delegatr": "0.1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"

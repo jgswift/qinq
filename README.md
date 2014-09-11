@@ -29,6 +29,14 @@ complex array manipulation with queries and built-in query caching
 This package does not parse PHP or do any AST handling.  qinq only manipulates
 arrays using php's built-in array functionality.
 
+## Dependency
+
+* php 5.5+
+* [jgswift/qtil](http://github.com/jgswift/qtil) - general utility library
+* [jgswift/kenum](http://github.com/jgswift/kenum) - enumerator implementation
+* [jgswift/kfiltr](http://github.com/jgswift/kfiltr) - filter/map/hook implementation
+* [jgswift/delegatr](http://github.com/jgswift/delegatr) - serializable closures
+
 ## Usage
 
 The following is a basic example

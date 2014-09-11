@@ -452,5 +452,14 @@ namespace qinq\Tests {
             
             $this->assertEquals(15, $strings->sum());
         }
+        
+        function testIntegratedQueryPluck() {
+            $users = new qinq\Collection([
+                ['email' => 'bob@example.com'],
+                ['email' => 'jim@example.com']
+            ]);
+            
+            $this->assertEquals(2,count($users->pluck('email')));
+        }
     }
 }
