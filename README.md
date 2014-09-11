@@ -4,6 +4,9 @@ PHP 5.5+ quasi integrated query
 
 [![Build Status](https://travis-ci.org/jgswift/qinq.png?branch=master)](https://travis-ci.org/jgswift/qinq)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jgswift/qinq/badges/quality-score.png?s=4c1433cd4686440e0a8a2eb2a0d3aac9d2a62337)](https://scrutinizer-ci.com/g/jgswift/qinq/)
+[![Latest Stable Version](https://poser.pugx.org/jgswift/qinq/v/stable.svg)](https://packagist.org/packages/jgswift/qinq)
+[![License](https://poser.pugx.org/jgswift/qinq/license.svg)](https://packagist.org/packages/jgswift/qinq)
+[![Coverage Status](https://coveralls.io/repos/jgswift/qinq/badge.png?branch=master)](https://coveralls.io/r/jgswift/qinq?branch=master)
 
 ## Installation
 
