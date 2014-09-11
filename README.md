@@ -35,7 +35,6 @@ arrays using php's built-in array functionality.
 * [jgswift/qtil](http://github.com/jgswift/qtil) - general utility library
 * [jgswift/kenum](http://github.com/jgswift/kenum) - enumerator implementation
 * [jgswift/kfiltr](http://github.com/jgswift/kfiltr) - filter/map/hook implementation
-* [jgswift/delegatr](http://github.com/jgswift/delegatr) - serializable closures
 
 ## Usage
 
@@ -375,6 +374,8 @@ foreach($users->pluck('email') as $email) {
 ```
 
 ### Storing
+
+qinq requires [jgswift/delegatr](http://github.com/jgswift/delegatr) to serialize and store queries.
 
 ```php
 $query = new \qinq\Object\Query($integers);

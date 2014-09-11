@@ -19,7 +19,7 @@ namespace qinq\Object {
             
             foreach($args as $k => $arg) {
                 if(is_callable($arg) && empty($this->callback)) {
-                    if($arg instanceof \Closure) {
+                    if($arg instanceof \Closure && trait_exists('delegatr\Delegate')) {
                         $this->callback = new qinq\Query\Statement\Delegate($arg);
                     } else {
                         $this->callback = $arg;
