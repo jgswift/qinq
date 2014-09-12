@@ -108,25 +108,7 @@ namespace qinq\Object\Query {
          * @return \qinq\Collection
          */
         public function to(callable $callable) {
-            list($inner,$outer) = $this->group;
-            
-            $result = [];
-            if(!empty($this->innerGroup)) { // MAP ON
-                foreach($this->innerGroup as $o => $innerGroup) {
-                    if(isset($outer[$o])) {
-                        $result[] = $callable($outer[$o],$innerGroup);
-                    }
-                }
-            } 
-            elseif(!empty($this->innerEquality)) { // MAP ON BOTH
-                foreach($this->innerEquality as $k => $outerGroup) {
-                    if(isset($inner[$k])) {
-                        foreach($outerGroup as $o) {
-                            $result[] = $callable($inner[$k],$o);
-                        }
-                    }
-                }
-            }
+            $result = $this->computeGroupResult($callable);
             
             $query = $this->getQuery();
             
@@ -139,6 +121,33 @@ namespace qinq\Object\Query {
             }
             
             return $collection;
+        }
+        
+        /**
+         * Helper function to retrieve inner/outer group results
+         * @return array
+         */
+        private function computeGroupResult(callable $callable) {
+            list($inner,$outer) = $this->group;
+            
+            $result = [];
+            if(!empty($this->innerGroup)) { // MAP ON
+                foreach($this->innerGroup as $o => $innerGroup) {
+                    if(isset($outer[$o])) {
+                        $result[] = $callable($outer[$o],$innerGroup);
+                    }
+                }
+            } elseif(!empty($this->innerEquality)) { // MAP ON BOTH
+                foreach($this->innerEquality as $k => $outerGroup) {
+                    if(isset($inner[$k])) {
+                        foreach($outerGroup as $o) {
+                            $result[] = $callable($inner[$k],$o);
+                        }
+                    }
+                }
+            }
+            
+            return $result;
         }
     }
 }

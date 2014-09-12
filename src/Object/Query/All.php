@@ -11,10 +11,8 @@ namespace qinq\Object\Query {
             $args = $this->getArguments();
             
             foreach($args as $arg) {
-                foreach($arr as $value) {
-                    if($value !== $arg) {
-                        return false;
-                    }
+                if(!in_array($arg,$arr)) {
+                    return false;
                 }
             }
             

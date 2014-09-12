@@ -8,8 +8,6 @@ namespace qinq\Object\Query {
          * @return array
          */
         public function execute() {
-            $arr = $this->getCollection()->toArray();
-            
             $args = $this->getArguments();
             
             $field = null;
@@ -17,22 +15,32 @@ namespace qinq\Object\Query {
                 $field = $args[0];
             }
             
-            
             if(is_string($field)) {
-                $result = [];
-                foreach($arr as $item) {
-                    if(is_object($item) && isset($item->$field)) {
-                        $result[] = $item->$field;
-                    } elseif((is_array($item) || $item instanceof \ArrayAccess) &&
-                             isset($item[$field])) {
-                        $result[] = $item[$field];
-                    }
-                }
-                
-                return $result;
+                return $this->computeRelatedFields($field);
             } 
             
             return parent::execute();
+        }
+        
+        /**
+         * Helper method to compute result from array or object list
+         * @param string $field
+         * @return \ArrayAccess
+         */
+        private function computeRelatedFields($field) {
+            $arr = $this->getCollection()->toArray();
+            
+            $result = [];
+            foreach($arr as $item) {
+                if(is_object($item) && isset($item->$field)) {
+                    $result[] = $item->$field;
+                } elseif((is_array($item) || $item instanceof \ArrayAccess) &&
+                         isset($item[$field])) {
+                    $result[] = $item[$field];
+                }
+            }
+
+            return $result;
         }
     }
 }

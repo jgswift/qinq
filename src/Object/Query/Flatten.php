@@ -17,8 +17,6 @@ namespace qinq\Object\Query {
         public function execute() {
             $collection = $this->getCollection();
             
-            $arr = $collection->toArray();
-            
             $flags = self::COLLECTION | self::ITERATOR | self::TRAVERSABLE;
             $args = $this->getArguments();
             if(isset($args[0])) {
@@ -64,16 +62,16 @@ namespace qinq\Object\Query {
         protected function convert($a,$flags) {
             if($flags & self::COLLECTION && 
                 $a instanceof qtil\Interfaces\Traversable) {
-                 $a = $a->toArray();
-             } elseif($flags & self::ITERATOR && 
-                      $a instanceof \Iterator) {
-                 $a = iterator_to_array($a);
-             } elseif($flags & self::TRAVERSABLE && 
-                      $a instanceof \Traversable) {
-                 $a = (array)$a;
-             }
+                $a = $a->toArray();
+            } elseif($flags & self::ITERATOR && 
+                     $a instanceof \Iterator) {
+                $a = iterator_to_array($a);
+            } elseif($flags & self::TRAVERSABLE && 
+                     $a instanceof \Traversable) {
+                $a = (array)$a;
+            }
              
-             return $a;
+            return $a;
         }
     }
 }
