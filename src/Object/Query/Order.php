@@ -11,6 +11,7 @@ namespace qinq\Object\Query {
             $collection = $this->getCollection();
             $arr = $collection->toArray();
             $fn = $this->getCallback();
+            $args = $this->getArguments();
             
             if(empty($fn) && !empty($args)) {
                 $fn = function($n) {
@@ -19,7 +20,7 @@ namespace qinq\Object\Query {
             }
             
             if(is_callable($fn)) {
-                $sortFn = $this->computeInequality($fn);
+                $sortFn = $this->computeInequality($fn, $args);
                 
                 usort($arr,$sortFn);
             }
@@ -32,9 +33,7 @@ namespace qinq\Object\Query {
          * @param callable $fn
          * @return callable
          */
-        protected function computeInequality($fn) {
-            $args = $this->getArguments();
-
+        protected function computeInequality($fn, array $args = []) {
             if(in_array(qinq\Order::Descending,$args)) {
                 $inequation = -1;
             } else {
