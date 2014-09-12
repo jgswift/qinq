@@ -61,8 +61,8 @@ namespace qinq\Query {
         
         /**
          * Update statement collection
-         * @param \qinq\Query\qinq\Interfaces\Collection $collection
-         * @return \qinq\Query\qinq\Interfaces\Collection
+         * @param \qinq\Interfaces\Collection $collection
+         * @return \qinq\Interfaces\Collection
          */
         function setCollection(qinq\Interfaces\Collection $collection) {
             return $this->query->setCollection($collection);

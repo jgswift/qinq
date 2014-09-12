@@ -27,7 +27,7 @@ namespace qinq\Object\Query {
         /**
          * Helper method to provide default filtering callables
          * @param integer $order
-         * @return callable
+         * @return \Closure
          */
         protected function getDefaultSorter($order) {
             $fn = function($n) {
@@ -40,7 +40,8 @@ namespace qinq\Object\Query {
         /**
          * Helper method to compute inequality and retrieve sorting method
          * @param callable $fn
-         * @return callable
+         * @param integer $order
+         * @return \Closure
          */
         protected function computeInequality($fn, $order) {
             if($order === qinq\Order::Descending) {
@@ -56,7 +57,7 @@ namespace qinq\Object\Query {
          * Default helper to compute sorting
          * @param callable $fn
          * @param int $inequation
-         * @return int
+         * @return \Closure
          */
         protected function getSortFn($fn,$inequation) {
             return function($a,$b)use($fn,$inequation) {

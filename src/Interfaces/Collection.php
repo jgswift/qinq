@@ -8,7 +8,7 @@ namespace qinq\Interfaces {
     interface Collection extends qtil\Interfaces\Collection {
         
         /**
-         * @return \qtil\Interfaces\Query
+         * @return \qinq\Object\Query
          */
         function getQuery();
     }

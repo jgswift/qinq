@@ -6,17 +6,19 @@ namespace qinq\Object\Query {
         /**
          * Helper method to provide default filtering callables
          * @param integer $order
-         * @return callable
+         * @return \Closure
          */
         protected function getDefaultSorter($order) {
-            if($order === qinq\Order::Descending) {
-                return function($a,$b) {
-                    return ($a > $b) ? -1 : 1;
-                };
-            } elseif($order === qinq\Order::Ascending) {
-                return function($a,$b) {
-                    return ($a < $b) ? -1 : 1;
-                };
+            switch($order) {
+                case qinq\Order::Descending:
+                    return function($a,$b) {
+                        return ($a > $b) ? -1 : 1;
+                    };
+                case qinq\Order::Ascending:
+                default:
+                    return function($a,$b) {
+                        return ($a < $b) ? -1 : 1;
+                    };
             }
         }
     }
