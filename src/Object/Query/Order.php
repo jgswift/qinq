@@ -14,18 +14,27 @@ namespace qinq\Object\Query {
             $args = $this->getArguments();
             
             if(empty($fn) && !empty($args)) {
-                $fn = function($n) {
-                    return $n;
-                };
+                $fn = $this->getDefaultSorter($args[0]);
             }
             
             if(is_callable($fn)) {
-                $sortFn = $this->computeInequality($fn, $args);
-                
-                usort($arr,$sortFn);
+                usort($arr, $fn);
             }
             
             return $arr;
+        }
+        
+        /**
+         * Helper method to provide default filtering callables
+         * @param integer $order
+         * @return callable
+         */
+        protected function getDefaultSorter($order) {
+            $fn = function($n) {
+                return $n;
+            };
+            
+            return $this->computeInequality($fn, $order);
         }
         
         /**
@@ -33,8 +42,8 @@ namespace qinq\Object\Query {
          * @param callable $fn
          * @return callable
          */
-        protected function computeInequality($fn, array $args = []) {
-            if(in_array(qinq\Order::Descending,$args)) {
+        protected function computeInequality($fn, $order) {
+            if($order === qinq\Order::Descending) {
                 $inequation = -1;
             } else {
                 $inequation = 1;

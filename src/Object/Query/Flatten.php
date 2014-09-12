@@ -15,8 +15,6 @@ namespace qinq\Object\Query {
          * @return array
          */
         public function execute() {
-            $collection = $this->getCollection();
-            
             $flags = self::COLLECTION | self::ITERATOR | self::TRAVERSABLE;
             $args = $this->getArguments();
             if(isset($args[0])) {

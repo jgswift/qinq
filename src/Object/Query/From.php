@@ -6,6 +6,7 @@ namespace qinq\Object\Query {
     class From extends qinq\Object\Statement {
         /**
          * Populate collection with array given
+         * @param $arguments,...
          * @return array
          */
         public function execute() {

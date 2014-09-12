@@ -7,7 +7,7 @@ namespace qinq\Object\Query {
          * Retrieve unique array values with callable
          * @return array
          */
-        function execute() {
+        public function execute() {
             $collection = $this->getCollection();
             
             $arr = $collection->toArray();

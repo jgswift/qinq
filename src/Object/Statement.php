@@ -18,6 +18,13 @@ namespace qinq\Object {
             $args = func_get_args();
             
             foreach($args as $k => $arg) {
+                /* if an argument is provided that is a callback
+                 * and the statement lacks a primary callback
+                 * make the callback primary to the statement
+                 * and remove it from the arguments
+                 * this is for convenience as most statements
+                 * will require a single callback
+                 */
                 if(is_callable($arg) && empty($this->callback)) {
                     if($arg instanceof \Closure && trait_exists('delegatr\Delegate')) {
                         $this->callback = new qinq\Query\Statement\Delegate($arg);
