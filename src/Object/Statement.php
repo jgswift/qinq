@@ -26,8 +26,8 @@ namespace qinq\Object {
                  * will require a single callback
                  */
                 if(is_callable($arg) && empty($this->callback)) {
-                    if($arg instanceof \Closure && trait_exists('delegatr\Delegate')) {
-                        $this->callback = new qinq\Query\Statement\Delegate($arg);
+                    if($arg instanceof \Closure && class_exists('delegatr\Lambda')) {
+                        $this->callback = new \delegatr\Lambda($arg);
                     } else {
                         $this->callback = $arg;
                     }

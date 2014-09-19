@@ -12,5 +12,15 @@ namespace qinq\Interfaces {
          * @return \qinq\Interfaces\Query
          */
         function setQuery(Query $query);
+        
+        /**
+         * Check if statement mutates collection 
+         */
+        function getMutable();
+        
+        /**
+         * Tell statement to mutate collection
+         */
+        function setMutable($bool);
     }
 }

@@ -2,7 +2,7 @@
 namespace qinq\Object\Query {
     use qinq;
     
-    class Map extends qinq\Object\Statement {
+    class Index extends qinq\Object\Statement {
         /**
          * maps array keys using callable
          * @return array
@@ -20,8 +20,8 @@ namespace qinq\Object\Query {
             
             $narr = [];
             
-            foreach($arr as $i) {
-                $nkey = $fn($i);
+            foreach($arr as $k => $i) {
+                $nkey = $fn($i,$k);
                 $narr[$nkey] = $i;
             }
             

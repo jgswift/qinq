@@ -29,6 +29,9 @@ namespace qinq\Tests {
                 $match = array_shift($matches);
                 $this->assertEquals($match,$number);
             }
+            
+            $this->assertEquals(4,$numbers->keys()->last());
+            $this->assertEquals(1,$numbers->keys()->first());
         }
         
         function testIntegratedQueryValues() {
@@ -103,6 +106,7 @@ namespace qinq\Tests {
             ]);
             
             $matches = range(1,4);
+            
             foreach($numbers->flatten() as $number) {
                 $match = array_shift($matches);
                 $this->assertEquals($match,$number);
@@ -486,6 +490,57 @@ namespace qinq\Tests {
                 $this->assertEquals(1,$number & 1);
                 $match = array_shift($matches);
                 $this->assertEquals($match,$number);
+            }
+        }
+        
+        function testIntegratedIndex() {
+            $strings = new qinq\Collection([
+                'foo',
+                'bar',
+                'bink',
+            ]);
+            
+            $matches_key = ['1-foo','2-bar','3-bink'];
+            $matches_value = ['foo','bar','bink'];
+            
+            
+            foreach($strings->index(function($value,$oldKey) {
+                return ($oldKey+1).'-'.$value;
+            }) as $index => $value) {
+                $match_key = array_shift($matches_key);
+                $match_value = array_shift($matches_value);
+                
+                $this->assertEquals($match_key,$index);
+                $this->assertEquals($match_value,$value);
+            }
+        }
+        
+        function testIntegratedRecursion() {
+            $numbers = new qinq\Collection([
+                1, 2, [3, 4, [5, 6]], 7, [8, [9, 10]]
+            ]);
+            
+            $matches = [
+                1, 4, 9, 16, 25, 36, 49, 64, 81,100
+            ];
+            
+            foreach($numbers->recursive(function($value) {
+                return $value * $value;
+            })->flatten() as $number) {
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
+        
+        function testIntegratedSearch() {
+            $numbers = new qinq\Collection([
+                1, 2, [3, 4, [5, 6]], 7, [8, [9, 10]]
+            ]);
+            
+            foreach($numbers->search(function($value) {
+                return ($value & 1) ? true : false;
+            })->flatten() as $number) {
+                $this->assertEquals(1,$number & 1);
             }
         }
     }

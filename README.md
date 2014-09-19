@@ -153,8 +153,6 @@ foreach($integers
     }
 ```
 
-## Additional Operations
-
 ### Difference
 
 Computes the difference between collection and argument
@@ -189,6 +187,182 @@ echo $integers->first(); // 1
 Retrieves last item in collection
 ```php
 echo $integers->last(); // 50
+```
+
+### Pluck
+
+Aggregate specific array key or object property
+
+```php
+$users = new qinq\Collection([
+    [
+        'name' => 'bob'
+        'email' => 'bob@example.com'
+    ],
+    [
+        'name' => 'jim'
+        'email' => 'jim@example.com'
+    ]
+]);
+
+foreach($users->pluck('name') as $email) {
+    // bob, jim 
+}
+```
+
+```php
+class User {
+    public $name, $email;
+
+    function __construct($name, $email) { /* ... */ }
+}
+
+$users = new qinq\Collection([
+    new User('bob','bob@example.com'),
+    new User('jim','jim@example.com'),
+]);
+
+foreach($users->pluck('email') as $email) {
+    // bob@example.com, jim@example.com
+}
+```
+
+### From
+
+Replaces entire collection with given arguments.  A single array/Iterator/Collection may also be given.
+```php
+foreach($integers
+    ->from([3,4])
+    as $number) {
+        // 3, 4
+    }
+```
+
+```php
+foreach($integers
+    ->from(3,4,5)
+    as $number) {
+        // 3, 4, 5
+    }
+```
+
+### Intersect
+
+Retrieves values that exist in both arrays
+```php
+foreach($integers
+    ->intersect(range(25,100))
+    as $number) {
+        // 25, 26, 27, ..., 50
+    }
+```
+
+### Reduce
+
+Reduces array to single value using callback function
+```php
+$q = new qinq\Collection([1,2,3,4,5]);
+
+foreach($q
+    ->reduce(function($carry,$item) {
+        return $carry * $item; // 1 * 2 * 3 * 4 * 5
+    })
+    as $result) {
+        // 120
+    }
+```
+
+### Shuffle
+
+Mix all items in collection to new random positions
+```php
+foreach($integers
+    ->shuffle()
+    as $result) {
+        // random number between 1 and 50
+    }
+```
+
+### Values
+
+Retrieves all values from collection
+```php
+foreach($integers
+    ->values()
+    as $result) {
+        // 1, 2, 3, ..., 50
+    }
+```
+
+### Keys
+
+Retrieves all collection keys
+```php
+foreach($integers
+    ->keys()
+    as $number) {
+        // 1, 2, 3, ..., 50
+    }
+```
+
+### Pack
+
+Removes all data from collection that is weakly equivalent to false or 0
+```php
+$junk = new qinq\Collection([
+    false, 0, false, '0', 'hello'
+]);
+
+foreach($junk
+    ->pack()
+    as $item) {
+        // 'hello'
+    }
+```
+
+### Random
+
+Selects a number of random items from collection
+```php
+foreach($integers
+    ->random(5)
+    as $result) {
+        // 5 random items from array
+    }
+```
+
+### Recursive
+
+Recursive maps through nested collections with a callback function
+
+```php
+$numbers = new qinq\Collection([
+    1, 2, [3, 4, [5, 6]], 7, [8, [9, 10]] // multidimensional array
+]);
+
+foreach($numbers
+    ->recursive(function($value) {
+        return $value * $value; // square(^2) values
+    }) as $number) {
+        // [ 1, 4, [ 9, 16, [ 25, 36 ] ] , 49, [ 64, [ 81, 100 ] ] ]
+    }
+```
+
+### Search
+
+Search filters through nested collections with a callback function
+
+```php
+$numbers = new qinq\Collection([
+    1, 2, [3, 4, [5, 6]], 7, [8, [9, 10]] // multidimensional array
+]);
+
+foreach($numbers
+    ->search(function($value) {
+        return ($value & 1) ? true : false; // only include odd values
+    }) as $number) {
+        // [ 1, [ 3, [ 5 ] ] , 7, [ 9 ] ]
+    }
 ```
 
 ### Flatten
@@ -249,148 +423,6 @@ Flattens objects implementing the built-in php Iterator interface
 [bitwise logic](http://php.net/manual/en/language.operators.bitwise.php).  
 The default flatten flag setting descends into any known collection type by default, namely 
 COLLECTION, TRAVERSABLE, and ITERATOR.
-
-### From
-
-Replaces entire collection with given arguments.  A single array/Iterator/Collection may also be given.
-```php
-foreach($integers
-    ->from([3,4])
-    as $number) {
-        // 3, 4
-    }
-```
-
-```php
-foreach($integers
-    ->from(3,4,5)
-    as $number) {
-        // 3, 4, 5
-    }
-```
-
-### Intersect
-
-Retrieves values that exist in both arrays
-```php
-foreach($integers
-    ->intersect(range(25,100))
-    as $number) {
-        // 25, 26, 27, ..., 50
-    }
-```
-
-### Keys
-
-Retrieves all collection keys
-```php
-foreach($integers
-    ->keys()
-    as $number) {
-        // 1, 2, 3, ..., 50
-    }
-```
-
-### Pack
-
-Removes all data from collection that is weakly equivalent to false or 0
-```php
-$junk = new qinq\Collection([
-    false, 0, false, '0', 'hello'
-]);
-
-foreach($junk
-    ->pack()
-    as $item) {
-        // 'hello'
-    }
-```
-
-### Reduce
-
-Reduces array to single value using callback function
-```php
-$q = new qinq\Collection([1,2,3,4,5]);
-
-foreach($q
-    ->reduce(function($carry,$item) {
-        return $carry * $item; // 1 * 2 * 3 * 4 * 5
-    })
-    as $result) {
-        // 120
-    }
-```
-
-### Shuffle
-
-Mix all items in collection to new random positions
-```php
-foreach($integers
-    ->shuffle()
-    as $result) {
-        // random number between 1 and 50
-    }
-```
-
-### Values
-
-Retrieves all values from collection
-```php
-foreach($integers
-    ->values()
-    as $result) {
-        // 1, 2, 3, ..., 50
-    }
-```
-
-### Random
-
-Selects a number of random items from collection
-```php
-foreach($integers
-    ->random(5)
-    as $result) {
-        // 5 random items from array
-    }
-```
-
-### Pluck
-
-Aggregate specific array key or object property
-
-```php
-$users = new qinq\Collection([
-    [
-        'name' => 'bob'
-        'email' => 'bob@example.com'
-    ],
-    [
-        'name' => 'jim'
-        'email' => 'jim@example.com'
-    ]
-]);
-
-foreach($users->pluck('name') as $email) {
-    // bob, jim 
-}
-```
-
-```php
-class User {
-    public $name, $email;
-
-    function __construct($name, $email) { /* ... */ }
-}
-
-$users = new qinq\Collection([
-    new User('bob','bob@example.com'),
-    new User('jim','jim@example.com'),
-]);
-
-foreach($users->pluck('email') as $email) {
-    // bob@example.com, jim@example.com
-}
-```
 
 ### Storing
 

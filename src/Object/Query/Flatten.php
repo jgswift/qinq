@@ -21,12 +21,12 @@ namespace qinq\Object\Query {
                 $flags = (int)$args[0];
             }
             
-            $return = [];
+            $return = $this->getCollection()->toArray();
             $fn = function($a) use (&$return, $flags) { 
                 $return[] = $this->flatten($a,$flags);
             };
             
-            while(\qtil\ArrayUtil::isMulti($return)) {
+            while($this->valid($return,$flags)) {
                 $compare = $return;
                 $return = [];
                 array_walk_recursive($compare, $fn);
@@ -43,7 +43,7 @@ namespace qinq\Object\Query {
          */
         protected function flatten($a,$flags) {
             if(!is_scalar($a)) {
-                if($flags & self::ARRAYONLY) {
+                if(!($flags & self::ARRAYONLY)) {
                     $a = $this->convert($a,$flags);
                 }
             }
@@ -70,6 +70,24 @@ namespace qinq\Object\Query {
             }
              
             return $a;
+        }
+        
+        /**
+         * Checks if array is multidimensional
+         * @param mixed $array
+         * @param integer $flags
+         * @return boolean
+         */
+        protected function valid($array,$flags) {
+            if($flags & self::ARRAYONLY) {
+                return qtil\ArrayUtil::isMulti($array);
+            } elseif($flags & self::COLLECTION || 
+                     $flags & self::ITERATOR || 
+                     $flags & self::TRAVERSABLE) {
+                return qtil\ArrayUtil::isMultiObject($array);
+            }
+            
+            return false;
         }
     }
 }

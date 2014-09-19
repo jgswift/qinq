@@ -2,7 +2,7 @@
 namespace qinq\Object\Query {
     use qinq;
     
-    class Values extends qinq\Object\Statement {
+    class Values extends qinq\Object\Statement\Immutable {
         /**
          * Retrieve all values of collection
          * @return array

@@ -18,6 +18,12 @@ namespace qinq\Query {
         protected $arguments = [];
         
         /**
+         * Whether or not specific statement mutates collection
+         * @var boolean 
+         */
+        protected $mutable = true;
+        
+        /**
          * Default constructor for query statements
          * TODO: Update to variadic 5.6
          * @param array $args
@@ -66,6 +72,23 @@ namespace qinq\Query {
          */
         function setCollection(qinq\Interfaces\Collection $collection) {
             return $this->query->setCollection($collection);
+        }
+        
+        /**
+         * Check if statement does mutate collection
+         * @return boolean
+         */
+        function getMutable() {
+            return $this->mutable;
+        }
+        
+        /**
+         * Update whether statement mutates collection
+         * @param bool $bool
+         * @return bool
+         */
+        function setMutable($bool) {
+            return $this->mutable = (bool)$bool;
         }
     }
 }
