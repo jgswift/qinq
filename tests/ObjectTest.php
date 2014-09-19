@@ -461,5 +461,32 @@ namespace qinq\Tests {
             
             $this->assertEquals(2,count($users->pluck('email')));
         }
+        
+        function testIntegratedFilter() {
+            $numbers = new qinq\Collection(range(1,10));
+            
+            // only odd numbers
+            foreach($numbers->filter(function($v) {
+                return (bool)($v & 1);
+            }) as $number) {
+                $this->assertEquals(1,$number & 1);
+            }
+        }
+        
+        function testIntegratedFilterMap() {
+            $numbers = new qinq\Collection(range(1,10));
+            
+            $matches = [1,27,125,343,729];
+            // only odd numbers
+            foreach($numbers->filter(function($v) {
+                return (bool)($v & 1);
+            })->map(function($v) {
+                return $v * $v * $v;
+            }) as $number) {
+                $this->assertEquals(1,$number & 1);
+                $match = array_shift($matches);
+                $this->assertEquals($match,$number);
+            }
+        }
     }
 }

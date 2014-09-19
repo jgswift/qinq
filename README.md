@@ -76,6 +76,22 @@ foreach($names->where(function($n) { return strlen($n) === 3; }) as $name) {
 }
 ```
 
+### Map
+
+Applies a callback to the collection elements
+
+```php
+foreach($numbers
+        ->filter(function($v) {
+            return (bool)($v & 1); // filter out even values
+        })
+        ->map(function($v) {
+            return $v * $v * $v; // cube all remaining odd values
+        }) as $number) {
+    // 1, 27, 125, 343, 729 ...
+}
+```
+
 ### Order
 ```php
 // Retrieves all integers in descending order
