@@ -1,6 +1,7 @@
 <?php
 namespace qinq\Query {
     use qtil;
+    use qinq;
     
     abstract class Statement implements \qinq\Interfaces\Statement {
         use qtil\Executable;
@@ -25,7 +26,6 @@ namespace qinq\Query {
         
         /**
          * Default constructor for query statements
-         * TODO: Update to variadic 5.6
          * @param array $args
          */
         function __construct($args = []) {
@@ -53,7 +53,7 @@ namespace qinq\Query {
          * @param \qinq\Interfaces\Query $query
          * @return \qinq\Interfaces\Query
          */
-        public function setQuery(\qinq\Interfaces\Query $query) {
+        public function setQuery(qinq\Interfaces\Query $query) {
             return $this->query = $query;
         }
         
