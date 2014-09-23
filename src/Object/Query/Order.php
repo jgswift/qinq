@@ -44,7 +44,7 @@ namespace qinq\Object\Query {
          * @return \Closure
          */
         protected function computeInequality($fn, $order) {
-            if($order === qinq\Order::Descending) {
+            if($order === qinq\Order::DESCENDING) {
                 $inequation = -1;
             } else {
                 $inequation = 1;

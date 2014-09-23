@@ -245,7 +245,7 @@ namespace qinq\Tests {
             $numbers = new qinq\Collection(range(1,3));
             
             $matches = range(3,1);
-            foreach($numbers->sort(qinq\Order::Descending) as $number) {
+            foreach($numbers->sort(qinq\Order::DESCENDING) as $number) {
                 $match = array_shift($matches);
                 $this->assertEquals($match,$number);
             }
@@ -263,7 +263,7 @@ namespace qinq\Tests {
             $numbers = new qinq\Collection(range(1,3));
             
             $matches = range(3,1);
-            foreach($numbers->order(qinq\Order::Descending) as $number) {
+            foreach($numbers->order(qinq\Order::DESCENDING) as $number) {
                 $match = array_shift($matches);
                 $this->assertEquals($match,$number);
             }
@@ -271,7 +271,7 @@ namespace qinq\Tests {
             $numbers = new qinq\Collection(range(1,3));
             
             $matches = range(1,3);
-            foreach($numbers->order(qinq\Order::Ascending) as $number) {
+            foreach($numbers->order(qinq\Order::ASCENDING) as $number) {
                 $match = array_shift($matches);
                 $this->assertEquals($match,$number);
             }

@@ -10,11 +10,11 @@ namespace qinq\Object\Query {
          */
         protected function getDefaultSorter($order) {
             switch($order) {
-                case qinq\Order::Descending:
+                case qinq\Order::DESCENDING:
                     return function($a,$b) {
                         return ($a > $b) ? -1 : 1;
                     };
-                case qinq\Order::Ascending:
+                case qinq\Order::ASCENDING:
                 default:
                     return function($a,$b) {
                         return ($a < $b) ? -1 : 1;

@@ -95,7 +95,7 @@ foreach($numbers
 ### Order
 ```php
 // Retrieves all integers in descending order
-foreach($integers->order(qinq\Order::Descending) as $integer) {
+foreach($integers->order(qinq\Order::DESCENDING) as $integer) {
     // 50, 49, 48, 47 ...
 }
 

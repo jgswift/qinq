@@ -1,7 +1,5 @@
 <?php
 namespace qinq\Object\Query {
-    use qtil;
-    
     class Pluck extends Values {
         /**
          * Retrieves values by an array field or object property
