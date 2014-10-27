@@ -205,7 +205,7 @@ $users = new qinq\Collection([
     ]
 ]);
 
-foreach($users->pluck('name') as $email) {
+foreach($users->pluck('name') as $name) {
     // bob, jim 
 }
 ```
