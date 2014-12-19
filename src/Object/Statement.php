@@ -1,5 +1,7 @@
 <?php
 namespace qinq\Object {
+    use qinq;
+    
     abstract class Statement extends qinq\Query\Statement {
         
         /**
