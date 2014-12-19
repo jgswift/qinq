@@ -18,6 +18,17 @@ namespace qinq\Object\Query {
                 return $arr;
             }
             
+            $args = $this->getArguments();
+            
+            $split = false;
+            if(!empty($args) && is_bool($args[1])) {
+                $split = $args[1];
+            }
+            
+            if($split === true) {
+                return array_map($fn, array_values($arr), array_keys($arr));
+            }
+            
             return array_map($fn,$arr);
         }
     }

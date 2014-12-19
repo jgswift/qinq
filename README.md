@@ -365,6 +365,35 @@ foreach($numbers
     }
 ```
 
+### Selector
+
+Selector filters through nested collections using common string selectors
+
+```php
+$ages = new qinq\Collection([
+    'joe' => 26,
+    'jim' => 40
+    'john' => 16
+]);
+
+foreach($ages
+    ->selector('joe|jim') as $age) {
+        // [ 26, 40 ]
+    }
+
+$favorites = new qinq\Collection([
+    'joe' => [
+        'color' => 'red',
+        'hat' => 'fedora'
+    ]
+]);
+
+foreach($favorites
+    ->selector('[joe][color]') as $favorite) {
+        // [ 'color' => 'red' ]
+    }
+```
+
 ### Flatten
 
 Retrieves every value from a multidimensional collection tree and transforms it into a single dimensional collection

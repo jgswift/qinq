@@ -493,6 +493,70 @@ namespace qinq\Tests {
             }
         }
         
+        function testIntegratedSubselectorMap() {
+            $strings = new qinq\Collection([
+                'foo' => [
+                    'bink' => 'roo'
+                ],
+                'bar' => 'baz',
+                'bink'=> 'bunk',
+            ]);
+            
+            $matches_value = [
+                ['bink'=>'roo']
+            ];
+            
+            foreach($strings->selector('[foo][bink]') as $value) {
+                $match_value = array_shift($matches_value);
+                
+                $this->assertEquals($match_value,$value);
+            }
+        }
+        
+        function testIntegratedMultiSelectorMap() {
+            $strings = new qinq\Collection([
+                'foo' => [
+                    'bink' => 'roo',
+                    'razzle' => 'dazzle'
+                ],
+                'bar' => 'baz',
+                'bink'=> 'bunk',
+            ]);
+            
+            $matches_value = [
+                ['bink'=>'roo'],
+                'baz',
+                'bunk'
+            ];
+            
+            foreach($strings->selector('bink|bar') as $value) {
+                $match_value = array_shift($matches_value);
+                
+                $this->assertEquals($match_value,$value);
+            }
+        }
+                
+        function testIntegratedSelectorMap() {
+            $strings = new qinq\Collection([
+                'foo' => [
+                    'bink' => 'roo'
+                ],
+                'bar' => 'baz',
+                'bink'=> 'bunk',
+            ]);
+            
+            $matches_value = [
+                ['bink'=>'roo'],
+                'bunk'
+            ];
+            
+            foreach($strings->selector('bink') as $value) {
+                $match_value = array_shift($matches_value);
+                
+                $this->assertEquals($match_value,$value);
+            }
+        }
+        
         function testIntegratedIndex() {
             $strings = new qinq\Collection([
                 'foo',
