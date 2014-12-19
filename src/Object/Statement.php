@@ -1,8 +1,6 @@
 <?php
 namespace qinq\Object {
-    use qinq\Query;
-    
-    abstract class Statement extends Query\Statement {
+    abstract class Statement extends qinq\Query\Statement {
         
         /**
          * Stores first callable passed into constructor
