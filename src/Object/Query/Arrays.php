@@ -1,7 +1,7 @@
 <?php
 namespace qinq\Object\Query {
     use qinq;
-    use qtil;
+    use restructr;
     
     class Arrays extends qinq\Object\Statement {
         
@@ -32,7 +32,7 @@ namespace qinq\Object\Query {
             if(!empty($args)) {
                 $against = [];
                 foreach($args as $arg) {
-                    if($arg instanceof qtil\Interfaces\Traversable) {
+                    if($arg instanceof restructr\Interfaces\Enumerable) {
                         $arg = $arg->toArray();
                     } elseif($arg instanceof \Iterator) {
                         $arg = iterator_to_array($arg);

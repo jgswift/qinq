@@ -513,6 +513,23 @@ namespace qinq\Tests {
             }
         }
         
+        function testIntegratedSingleSelector() {
+            $strings = new qinq\Collection([
+                'bar' => 'baz',
+                'bink'=> 'bunk',
+            ]);
+            
+            $matches_value = [
+                'baz',
+            ];
+            
+            foreach($strings->selector('bar') as $value) {
+                $match_value = array_shift($matches_value);
+                
+                $this->assertEquals($match_value,$value);
+            }
+        }
+        
         function testIntegratedMultiSelectorMap() {
             $strings = new qinq\Collection([
                 'foo' => [
